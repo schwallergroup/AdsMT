@@ -1,0 +1,50 @@
+trainer: global
+
+dataset:
+  - src: datasets/Alloy-GMAE/data.lmdb
+    normalize_labels: True
+
+# logger: wandb
+
+task:
+  dataset: single_point_lmdb
+  type: regression
+  metric: mae
+  labels:
+    - relaxed energy
+
+model:
+  name: adsmt_arch
+  use_pbc: True
+  otf_graph: True
+  regress_forces: False
+  desc_layers: 2
+  desc_hidden_dim: 128
+  graph_encoder: cgcnn
+  graph_encoder_args:
+    atom_embedding_size: 128
+    num_graph_conv_layers: 5
+    num_gaussians: 100
+    cutoff: 6.0
+  cross_modal_args:
+    vec_emb_dim: 128
+    node_emb_dim: 128
+    hidden_dim: 128
+    out_channels: 1
+    num_gaussians: 100
+    num_heads: 4
+    attn_layers: 1
+    mlp_layers: 3
+    dropout: 0.0
+    act: silu
+
+optim:
+  batch_size: 64
+  eval_batch_size: 64
+  num_workers: 16
+  lr_initial: 0.005
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.5
+  patience: 3
+  max_epochs: 100

@@ -1,0 +1,60 @@
+trainer: energy
+
+dataset:
+  - src: datasets/OC20-LMAE/all/data.lmdb
+    normalize_labels: True
+    target_mean: -1.3802
+    target_std: 2.0423
+  - src: datasets/OC20-LMAE/val_id/data.lmdb
+
+# logger: wandb
+
+task:
+  dataset: single_point_lmdb
+  type: regression
+  metric: mae
+  labels:
+    - relaxed energy
+
+model:
+  name: adsmt_arch
+  use_pbc: True
+  otf_graph: True
+  regress_forces: False
+  desc_layers: 2
+  desc_hidden_dim: 128
+  graph_encoder: et
+  graph_encoder_args:
+    hidden_channels: 128
+    num_heads: 8
+    num_layers: 6
+    num_rbf: 64
+    rbf_type: expnorm
+    trainable_rbf: false
+    max_z: 90
+    cutoff: 6.0
+    max_neighbors: 50
+    distance_influence: both
+    neighbor_embedding: true
+  cross_modal_args:
+    vec_emb_dim: 128
+    node_emb_dim: 128
+    hidden_dim: 128
+    out_channels: 1
+    num_gaussians: 100
+    num_heads: 4
+    attn_layers: 1
+    mlp_layers: 3
+    dropout: 0.0
+    act: silu
+
+optim:
+  batch_size: 32
+  eval_batch_size: 32
+  num_workers: 16
+  lr_initial: 0.001
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.5
+  patience: 5
+  max_epochs: 50

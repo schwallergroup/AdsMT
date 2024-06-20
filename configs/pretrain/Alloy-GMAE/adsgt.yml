@@ -1,0 +1,40 @@
+includes:
+- configs/pretrain/base.yml
+
+model:
+  name: adsmt_arch
+  use_pbc: True
+  otf_graph: True
+  regress_forces: False
+  desc_layers: 2
+  desc_hidden_dim: 128
+  graph_encoder: adsgt
+  graph_encoder_args:
+    node_features: 128
+    edge_features: 128
+    conv_layers: 3
+    node_layer_head: 8
+    cutoff: 8.0
+    max_neighbors: 12
+  cross_modal_args:
+    vec_emb_dim: 128
+    node_emb_dim: 128
+    hidden_dim: 128
+    out_channels: 1
+    num_gaussians: 100
+    num_heads: 4
+    attn_layers: 1
+    mlp_layers: 3
+    dropout: 0.0
+    act: silu
+
+optim:
+  batch_size: 16
+  eval_batch_size: 16
+  num_workers: 8
+  lr_initial: 0.0005
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.5
+  patience: 3
+  max_epochs: 30

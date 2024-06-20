@@ -1,0 +1,59 @@
+trainer: global
+
+dataset:
+  - src: datasets/OCD-GMAE/data.lmdb
+    normalize_labels: True
+
+# logger: wandb
+
+task:
+  dataset: single_point_lmdb
+  type: regression
+  metric: mae
+  labels:
+    - relaxed energy
+
+model:
+  name: adsmt_arch
+  use_pbc: True
+  otf_graph: True
+  regress_forces: False
+  desc_layers: 2
+  desc_hidden_dim: 128
+  graph_encoder: escn
+  graph_encoder_args:
+    num_layers: 4
+    max_neighbors: 20
+    cutoff: 12.0
+    sphere_channels: 128
+    hidden_channels: 128
+    lmax_list: [4]
+    mmax_list: [2]
+    num_sphere_samples: 128
+    distance_function: "gaussian"
+    basis_width_scalar: 2.0
+  cross_modal_args:
+    vec_emb_dim: 128
+    node_emb_dim: 128
+    out_channels: 1
+    num_gaussians: 20
+    num_heads: 4
+    attn_layers: 1
+    mlp_layers: 3
+    dropout: 0.0
+    act: silu
+
+optim:
+  batch_size: 8
+  eval_batch_size: 8
+  num_workers: 8
+  optimizer: AdamW
+  optimizer_params: {"amsgrad": True}
+  lr_initial: 0.0008
+  clip_grad_norm: 20
+  ema_decay: 0.999
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.3
+  patience: 3
+  max_epochs: 120

@@ -1,0 +1,55 @@
+trainer: global
+
+dataset:
+  - src: datasets/FG-GMAE/data.lmdb
+    normalize_labels: True
+
+# logger: wandb
+
+task:
+  dataset: single_point_lmdb
+  type: regression
+  metric: mae
+  labels:
+    - relaxed energy
+
+model:
+  name: adsmt_arch
+  pretrain: True
+  ckpt_path: model_ckpts/pretrain/FG-GMAE/adsgt.pt
+  freeze_nblock: 0
+  use_pbc: True
+  otf_graph: True
+  regress_forces: False
+  desc_layers: 2
+  desc_hidden_dim: 128
+  graph_encoder: adsgt
+  graph_encoder_args:
+    node_features: 128
+    edge_features: 128
+    conv_layers: 5
+    node_layer_head: 8
+    cutoff: 6.0
+    max_neighbors: 50
+  cross_modal_args:
+    vec_emb_dim: 128
+    node_emb_dim: 128
+    hidden_dim: 128
+    out_channels: 1
+    num_gaussians: 20
+    num_heads: 4
+    attn_layers: 1
+    mlp_layers: 3
+    dropout: 0.0
+    act: silu
+
+optim:
+  batch_size: 16
+  eval_batch_size: 16
+  num_workers: 8
+  lr_initial: 0.0003
+  scheduler: ReduceLROnPlateau
+  mode: min
+  factor: 0.8
+  patience: 3
+  max_epochs: 80

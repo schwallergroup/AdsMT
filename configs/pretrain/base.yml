@@ -1,0 +1,17 @@
+trainer: energy
+
+dataset:
+  - src: datasets/OC20-LMAE/all/data.lmdb
+    normalize_labels: True
+    target_mean: -1.3802
+    target_std: 2.0423
+  - src: datasets/OC20-LMAE/val_id/data.lmdb
+
+# logger: wandb
+
+task:
+  dataset: single_point_lmdb
+  type: regression
+  metric: mae
+  labels:
+    - relaxed energy
