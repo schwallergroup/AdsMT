@@ -10,7 +10,7 @@ AdsMT is a novel multi-modal transformer to rapidly predict the global minimum a
 
 
 ## 🚀 Environment Setup
-
+- System requirements: This package requires a standard Linux computer with GPU (supports CUDA >= 11) and enough RAM (> 2 GB). The codes have been tested on NVIDIA RTX 3090, A6000 and A100 GPUs. If you want to run the code on a GPU that does not support CUDA>=11, you need to modify the versions of PyTorch and CUDA in the [env.yml](env.yml) file.
 - We'll use `conda` to install dependencies and set up the environment for a Nvidia GPU machine.
 We recommend using the [Miniconda installer](https://docs.conda.io/projects/miniconda/en/latest/miniconda-other-installer-links.html).
 - After installing `conda`, install [`mamba`](https://mamba.readthedocs.io/en/latest/) to the base environment. `mamba` is a faster, drop-in replacement for `conda`:
@@ -21,7 +21,7 @@ We recommend using the [Miniconda installer](https://docs.conda.io/projects/mini
     ```bash
     mamba env create -f env.yml
     ```
-    Activate the conda environment with `conda activate adsmt`.
+    Activate the conda environment with `conda activate adsmt`. It will take about 10 minutes to configure the environment for running code.
 
 ## 📌 Datasets
 Dataset links: [Zenodo](https://doi.org/10.5281/zenodo.12104162) and [Figshare](https://doi.org/10.6084/m9.figshare.25966573)
@@ -56,7 +56,7 @@ This code repo includes 7 different graph encoders:
 [GemNet-OC](https://arxiv.org/abs/2204.02782) (gemnet-oc), 
 [TorchMD-NET](https://arxiv.org/abs/2202.02541) (et), 
 [eSCN](https://arxiv.org/abs/2302.03655) (escn), 
-AdsGT (adsgt, this work).
+AdsGT (adsgt, this work). The log file including experiment results will be found in `exp_results/[DATASET]/[GRAPH_ENCODER].log`. It will take 3-24 hours for one task, depending on the dataset and graph encoder.
 
 ### 2. Pretraining on the OC20-LMAE dataset
 We provide scripts for model pretraining on the OC20-LMAE dataset. For example, a AdsMT model with different graph encoders will be pretrained by running:
