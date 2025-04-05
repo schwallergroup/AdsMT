@@ -1,7 +1,7 @@
 # AdsMT: Multimodal Transformer for Predicting Global Minimum Adsorption Energy
 
 <!-- [![arXiv](https://img.shields.io/badge/arXiv-2312.13136-b31b1b.svg)](https://arxiv.org/abs/2312.13136) -->
-[![zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.12104162.svg)](https://doi.org/10.5281/zenodo.12104162)
+[![DOI](https://img.shields.io/badge/DOI-10.1038/s41467--025--58499--7-blue.svg)](https://www.nature.com/articles/s41467-025-58499-7)
 
 AdsMT is a novel multi-modal transformer to rapidly predict the global minimum adsorption energy (GMAE) of diverse catalyst/adsorbate combinations based on surface graphs and adsorbate feature vectors without any binding information.
 
@@ -91,7 +91,18 @@ This code repo is based on several existing repositories:
 ## 📝 Citation
 If you find our work useful, please consider citing it:
 ```bibtex
-
+@article{adsmt,
+author={Chen, Junwu and Huang, Xu and Hua, Cheng and He, Yulian and Schwaller, Philippe},
+title={A multi-modal transformer for predicting global minimum adsorption energy},
+journal={Nature Communications},
+year={2025},
+volume={16},
+number={1},
+pages={3232},
+issn={2041-1723},
+doi={10.1038/s41467-025-58499-7},
+url={https://doi.org/10.1038/s41467-025-58499-7}
+}
 ```
 
 ## 📫 Contact
